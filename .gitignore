@@ -1,0 +1,51 @@
+# Módulos de Node.js
+node_modules/
+
+# Archivos de registro
+logs/
+*.log
+
+# Directorio de dependencias creado por npm 5+
+node_modules
+
+# Directorio de dependencias creadas por npm 5+
+# este es despreciado en favor de /node_modules
+/npm-debug.log*
+
+# Directorio de dependencias creadas por yarn
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
+.env
+
+# Lockfile de npm
+package-lock.json
+
+# Yarn lockfile
+yarn.lock
+
+# Dependencias de meteor
+versions.json
+
+# Archivos generados en el tiempo de construcción o ejecución
+build/
+dist/
+
+# Salida de pruebas
+coverage/
+
+# Directorio de pruebas end-to-end generadas por Cypress
+cypress/screenshots/
+cypress/videos/
+
+# Archivos de snapshots de pruebas generados por jest
+__snapshots__/
+
+# Dependencias pnpm
+pnpm-lock.yaml
+
+# Dependencias Nuxt.js
+.nuxt/
+
+# Directorio de análisis
+.pnpm-debug.log
