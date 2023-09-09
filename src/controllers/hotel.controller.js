@@ -1,4 +1,5 @@
 import Hotel from "../models/hotel.models.js";
+// import Room from "../models/room.models.js";
 
 export const getAllHotelByUser = async (req, res) => {
   try {
@@ -65,3 +66,40 @@ export const assingRoom = async (idHotel, idRoom) => {
     console.error("It was not assigned correctly.");
   }
 };
+
+// export const getHotelsBySearching = async (req, res) => {
+//   try {
+//     const { start_date, end_date, number_of_person, location } = req.body;
+//     const getHotelsWithLocation = await Hotel.find({ location });
+//     const hotelsAvailables = getHotelsWithAvailableRooms(
+//       getHotelsWithLocation,
+//       number_of_person,
+//       start_date,
+//       end_date
+//     );
+//     res.status(200).json(hotelsAvailables);
+//   } catch (error) {
+//     res.status(500).json({ error: "Error searching hotels" });
+//   }
+// };
+
+// const getHotelsWithAvailableRooms = async (hotels, number_of_person, start_date, end_date) => {
+//   try {
+//     const result = [];
+//     for (const hotel of hotels) {
+//       let rooms = await Room.find({ id_hotel: hotel._id });
+//       let roomsAvailable = rooms.filter(({ number_of_persons }, index) => {
+//         return number_of_persons >= number_of_person;
+//       });
+//       if (roomsAvailable.length) {
+//         result.push({
+//           hotel,
+//           roomsAvailable,
+//         });
+//       }
+//     }
+//     return result;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
