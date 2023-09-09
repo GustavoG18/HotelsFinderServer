@@ -11,26 +11,18 @@ const reservationSchema = new Schema({
     required: true,
   },
   contact_emergency: {
-    type: {
-      fullname: String,
-      phone_number: String,
-    },
+    type: Object,
     required: true,
   },
   guests: {
-    type: {
-      name: String,
-      lastname: String,
-      birthday: Date,
-      gender: String,
-      type_of_document: String,
-      number_of_document: String,
-      email: String,
-      phone_number: String,
-    },
+    type: Object,
     required: true,
   },
   id_room: {
+    type: mongoose.Schema.ObjectId,
+    required: true,
+  },
+  id_hotel: {
     type: mongoose.Schema.ObjectId,
     required: true,
   },
