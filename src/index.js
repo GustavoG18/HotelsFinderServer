@@ -1,8 +1,11 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import dotenv from "dotenv";
 import hotelRouters from "./routes/hotel.js";
+import connectToDatabase from "./database/database.js";
 
+dotenv.config();
 const app = express();
 
 app.use(morgan("dev"));
@@ -12,6 +15,7 @@ app.use(
     extended: true,
   })
 );
+connectToDatabase();
 
 // Routes
 app.use("/", hotelRouters);
