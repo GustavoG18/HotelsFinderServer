@@ -1,5 +1,35 @@
 import Hotel from "../models/hotel.models.js";
 
+export const getAllHotelByUser = async (req, res) => {
+  try {
+    const userId = req.body.userId;
+    const getHotels = await Hotel.find({ id_user: userId });
+    res.status(200).json(getHotels);
+  } catch (error) {
+    res.status(500).json({ error: "Error getting all hotels" });
+  }
+};
+
+export const getAllHotels = async (req, res) => {
+  try {
+    const getHotels = await Hotel.find();
+    res.status(200).json(getHotels);
+  } catch (error) {
+    res.status(500).json({ error: "Error getting all hotels" });
+  }
+};
+
+export const getHotel = async (req, res) => {
+  try {
+    const hotelId = req.body.hotelId;
+    const getHotel = await Hotel.find({ _id: hotelId });
+    res.status(200).json(getHotel);
+  } catch (error) {
+    console.log("Look", error);
+    res.status(500).json({ error: "Error getting hotel" });
+  }
+};
+
 export const createHotel = async (req, res) => {
   try {
     const newHotel = new Hotel({
@@ -9,6 +39,20 @@ export const createHotel = async (req, res) => {
     res.status(200).json(hotelSaved);
   } catch (error) {
     res.status(500).json({ error: "Error creating hotel" });
+  }
+};
+
+export const updateHotel = async (req, res) => {
+  try {
+    const newHotel = new Hotel({
+      ...req.body,
+    });
+    const response = await Hotel.findByIdAndUpdate(req.body._id, newHotel, {
+      new: true,
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    res.status(500).json({ error: "Error updating hotel" });
   }
 };
 
