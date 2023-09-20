@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Room from "../models/room.models.js";
 import { assingRoom } from "./hotel.controller.js";
+import Hotel from "../models/hotel.models.js";
 
 export const createRoom = async (req, res) => {
   try {
@@ -60,6 +61,34 @@ export const getAllRoomsByHotel = async (req, res) => {
     });
     res.status(200).json(getRooms);
   } catch (error) {
+    res.status(500).json({
+      error: "Error getting rooms",
+    });
+  }
+};
+
+export const getAllRooms = async (req, res) => {
+  try {
+    const { number_of_persons, location } = req.query;
+    const find = [];
+    const getRooms = await Room.find();
+    for (const room of getRooms) {
+      const [hotel] = await Hotel.find({ _id: room.id_hotel });
+      if (
+        location === hotel.location &&
+        number_of_persons <= room.number_of_persons
+      ) {
+        find.push({
+          ...room._doc,
+          hotel_name: hotel.name,
+          hotel_location: hotel.location,
+          id_hotel: hotel._id,
+        });
+      }
+    }
+    res.status(200).json(find);
+  } catch (error) {
+    console.log(error);
     res.status(500).json({
       error: "Error getting rooms",
     });

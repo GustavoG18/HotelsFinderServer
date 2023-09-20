@@ -10,6 +10,7 @@ import {
 import {
   createRoom,
   enabledRoom,
+  getAllRooms,
   getAllRoomsByHotel,
   getRoom,
   updateRoom,
@@ -24,6 +25,7 @@ router.get("/getAllHotelByUser", getAllHotelByUser);
 router.get("/getAllHotels", getAllHotels);
 router.post("/room/createRoom", createRoom);
 router.get("/room/getAllRoomsByHotel", getAllRoomsByHotel);
+router.get("/room/getAllRooms", getAllRooms);
 router.get("/room/getRoom", getRoom);
 router.put("/room/updateRoom", updateRoom);
 router.put("/enabledHotel", enabledHotel);
