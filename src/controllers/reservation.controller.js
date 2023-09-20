@@ -26,7 +26,8 @@ export const getReservation = async (req, res) => {
 
 export const getAllReservationByUserAdmin = async (req, res) => {
   try {
-    const { id_user } = req.body;
+    const { id_user } = req.query;
+    console.log(id_user);
     const getHotels = await Hotel.find({ id_user });
     let userReservation = [];
     if (getHotels.length) {

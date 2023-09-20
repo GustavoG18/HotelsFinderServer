@@ -1,9 +1,10 @@
 import Hotel from "../models/hotel.models.js";
+import Room from "../models/room.models.js";
 // import Room from "../models/room.models.js";
 
 export const getAllHotelByUser = async (req, res) => {
   try {
-    const userId = req.body.userId;
+    const { userId } = req.query;
     const getHotels = await Hotel.find({ id_user: userId });
     res.status(200).json(getHotels);
   } catch (error) {
@@ -22,7 +23,7 @@ export const getAllHotels = async (req, res) => {
 
 export const getHotel = async (req, res) => {
   try {
-    const hotelId = req.body.hotelId;
+    const hotelId = req.query.hotelId;
     const getHotel = await Hotel.find({ _id: hotelId });
     res.status(200).json(getHotel);
   } catch (error) {
@@ -37,8 +38,15 @@ export const createHotel = async (req, res) => {
       ...req.body,
     });
     const hotelSaved = await newHotel.save();
+    for (const room of hotelSaved.rooms) {
+      console.log(room);
+      await Room.findByIdAndUpdate(room, {
+        id_hotel: hotelSaved._id,
+      });
+    }
     res.status(200).json(hotelSaved);
   } catch (error) {
+    console.error("look =>", error);
     res.status(500).json({ error: "Error creating hotel" });
   }
 };
@@ -51,8 +59,19 @@ export const updateHotel = async (req, res) => {
     const response = await Hotel.findByIdAndUpdate(req.body._id, newHotel, {
       new: true,
     });
+    for (const room of response.rooms) {
+      const res = await Room.findByIdAndUpdate(
+        room,
+        {
+          id_hotel: response._id,
+        },
+        { new: true }
+      );
+      console.log(room, res);
+    }
     res.status(200).json(response);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error updating hotel" });
   }
 };
@@ -64,6 +83,22 @@ export const assingRoom = async (idHotel, idRoom) => {
     return await Hotel.findByIdAndUpdate(idHotel, getHotel, { new: true });
   } catch (error) {
     console.error("It was not assigned correctly.");
+  }
+};
+
+export const enabledHotel = async (req, res) => {
+  try {
+    const { _id, enabled } = req.body;
+    console.log(_id, enabled);
+    const response = await Hotel.findByIdAndUpdate(
+      _id,
+      { enabled },
+      { new: true }
+    );
+    console.log("Look", response);
+    res.status(200).json(enabled);
+  } catch (error) {
+    res.status(500).json({ error: "Error updating hotel" });
   }
 };
 

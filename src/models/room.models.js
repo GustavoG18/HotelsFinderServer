@@ -33,23 +33,23 @@ const roomSchema = new Schema({
   type_of_room: {
     type: String,
     enum: [
-      "Estandar",
+      "Standart",
       "Suite",
-      "Doble Deluxe",
+      "Double Deluxe",
       "Familiar",
       "Individual",
-      "Economica",
+      "Economic",
     ],
     required: true,
   },
   location: {
     type: String,
+    enum: ["Front", "Back"],
     required: true,
   },
   id_hotel: {
     type: mongoose.Schema.ObjectId,
-    unique: true,
-    required: true,
+    required: false,
   },
 });
 

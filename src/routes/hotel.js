@@ -5,9 +5,11 @@ import {
   getAllHotelByUser,
   getHotel,
   updateHotel,
+  enabledHotel,
 } from "../controllers/hotel.controller.js";
 import {
   createRoom,
+  enabledRoom,
   getAllRoomsByHotel,
   getRoom,
   updateRoom,
@@ -24,5 +26,7 @@ router.post("/room/createRoom", createRoom);
 router.get("/room/getAllRoomsByHotel", getAllRoomsByHotel);
 router.get("/room/getRoom", getRoom);
 router.put("/room/updateRoom", updateRoom);
+router.put("/enabledHotel", enabledHotel);
+router.put("/room/enabledRoom", enabledRoom);
 
 export default router;
