@@ -16,15 +16,15 @@ const userSchema = new Schema({
   },
   gender: {
     type: String,
-    enum: ["Masculino", "Femenino"],
+    enum: ["male", "female"],
     required: true,
   },
-  type_of_document: {
+  document_type: {
     type: String,
-    enum: ["Cedula", "Pasaporte", "Visa"],
+    enum: ["id", "passport", "visa"],
     required: true,
   },
-  number_of_document: {
+  document_number: {
     type: String,
     required: true,
     unique: true,

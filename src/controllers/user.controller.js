@@ -14,6 +14,7 @@ export const createUser = async (req, res) => {
 
 export const createUserAdmin = async (req, res) => {
   try {
+    console.log("look", req.body);
     const newUser = new User({
       ...req.body,
       rol: "Administrador",
@@ -21,13 +22,14 @@ export const createUserAdmin = async (req, res) => {
     const userSaved = await newUser.save();
     res.status(200).json(userSaved);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: "Error creating a administrator" });
   }
 };
 
 export const getUser = async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.query;
     const response = await User.find({ email, password });
     if (response) {
       res.status(200).json(response);
